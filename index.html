@@ -20,6 +20,26 @@
 
       gtag('config', 'AW-17293302835');
     </script>
+    
+    <!-- Event snippet for Compra - Heygen (1) conversion page
+    In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-17293302835/9vikCPao3_8aELO4i7ZA',
+          'value': 0.0,
+          'currency': 'BRL',
+          'transaction_id': '',
+          'event_callback': callback
+      });
+      return false;
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

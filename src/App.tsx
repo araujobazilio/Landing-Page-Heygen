@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from 'react';
+
+// Declaração da função global gtag_report_conversion
+declare global {
+  function gtag_report_conversion(url?: string): boolean;
+}
+
 import { 
   Play, 
   Star, 
@@ -151,7 +157,8 @@ function App() {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
               <a 
-                href={affiliateLink}
+                href="#"
+                onClick={() => gtag_report_conversion(affiliateLink)}
                 className="group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center"
               >
                 <Sparkles className="w-5 h-5 mr-2" />
