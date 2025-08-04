@@ -37,6 +37,7 @@ function App() {
     seconds: 30
   });
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
   const [showPriceComparison, setShowPriceComparison] = useState(false);
 
   const affiliateLink = "https://heygen.com/?sid=rewardful&via=rafael-bazilio";
@@ -123,7 +124,15 @@ function App() {
       {/* Hero Section - ATTENTION */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+        {/* Imagem no topo da página */}
+        <div className="w-full max-h-96 overflow-hidden">
+          <img 
+            src="/image (3).png" 
+            alt="Destaque principal" 
+            className="w-full h-full object-cover object-center"
+          />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
           <div className="text-center">
             {/* Limited Time Offer Banner */}
             <div className="inline-flex items-center bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-2 rounded-full text-sm font-semibold mb-8 animate-pulse">
@@ -150,7 +159,10 @@ function App() {
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
               
-              <button className="flex items-center text-white hover:text-purple-300 transition-colors">
+              <button 
+                className="flex items-center text-white hover:text-purple-300 transition-colors"
+                onClick={() => setIsVideoPlaying(true)}
+              >
                 <Play className="w-8 h-8 mr-3 bg-white/20 rounded-full p-2" />
                 <span className="text-lg">Watch Demo Video</span>
               </button>
@@ -324,7 +336,14 @@ function App() {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Join 1M+ Creators Already Using HeyGen
             </h2>
-            <p className="text-xl text-gray-300">See what industry leaders are saying about HeyGen</p>
+            <p className="text-xl text-gray-300 mb-8">See what industry leaders are saying about HeyGen</p>
+            <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl border border-purple-500/30 mb-12">
+              <img 
+                src="/image.png" 
+                alt="Depoimento de cliente satisfeito" 
+                className="w-full h-auto"
+              />
+            </div>
           </div>
 
           {/* Stats */}
@@ -543,6 +562,37 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Modal de Vídeo */}
+      {isVideoPlaying && (
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+          <div className="relative bg-slate-900 rounded-xl overflow-hidden max-w-4xl w-full">
+            <button 
+              className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 rounded-full p-2 text-white z-10"
+              onClick={() => {
+                setIsVideoPlaying(false);
+                if (videoRef.current) {
+                  videoRef.current.pause();
+                }
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+            <video 
+              ref={videoRef}
+              src="https://dynamic.heygen.ai/www/Agent/VersionDone5.mp4?updatedAt=1750903787595#t=0.01"
+              controls 
+              autoPlay 
+              className="w-full h-auto"
+            >
+              Seu navegador não suporta a reprodução de vídeos.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
